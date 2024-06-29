@@ -23,15 +23,16 @@ public class troisiemePersonCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
-        orientation.forward = viewDir.normalized;
-
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
-        Vector3 inputDir = orientation.forward * Mathf.Abs(verticalInput) + orientation.forward * Mathf.Abs(horizontalInput);
+
+        Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
+        player.forward = viewDir.normalized;
+        
+        Vector3 inputDir = player.forward * Mathf.Abs(verticalInput) + player.forward * Mathf.Abs(horizontalInput);
 
     
-        player.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+        player.forward = Vector3.Slerp(player.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         
     }
 }
